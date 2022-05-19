@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokerts_app/colors.dart';
-//import './playfield.dart';
-//import './login.dart';
+import './playfield.dart';
+import './login.dart';
 
-//String gameId = "ahoj";
+const String gameId = "ahoj";
 
 final ThemeData _theme = _buildTheme();
 
@@ -20,12 +20,12 @@ ThemeData _buildTheme(){
 void main(){
   runApp(MaterialApp(
     title: "PokerApp v1",
-    //initialRoute: "/login",
-    home: Text("Test"),// LoginPage(),
-    /* routes: {
-      "/login": (context) => const LoginPage(),
+    initialRoute: "/login",
+    //home: LoginPage(),
+    routes: {
+      "/login": (context) => LoginPage(),
       "/playfield": (context) => PlayField(gameId),
-    }, */
+    }, 
     theme: _theme,
   ));
 }

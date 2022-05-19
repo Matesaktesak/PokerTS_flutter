@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget{
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context){
@@ -37,7 +37,11 @@ class LoginPage extends StatelessWidget{
                 obscureText: true,
               ),
               const SizedBox(height: 15,),
-              ElevatedButton(onPressed: null, /*loginPressed(context), */ child: Text("Login")),
+              ElevatedButton(
+                onPressed: (){
+                  loginPressed(context);
+                },
+                child: Text("Login")),
               const SizedBox(
                 height: 150,
               ),
@@ -55,13 +59,11 @@ class LoginPage extends StatelessWidget{
     );
   }
 
-  VoidCallback? registerPressed(){
-    return null;
+  void Function()? registerPressed(){
+
   }
 
-  VoidCallback? loginPressed(BuildContext context){
+  void loginPressed(BuildContext context){
     Navigator.pushNamed(context, "/playfield");
-    return null;
-    //Navigator.push(context, PlayField("gameId"));
   }
 }
