@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
+import 'package:pokerts_app/colors.dart';
+//import './playfield.dart';
+//import './login.dart';
 
-void main() => runApp(PokerApp());
+//String gameId = "ahoj";
 
-class PokerApp extends StatelessWidget{
-  var socket = await WebSocket.connect("ws://localhost:8080/protocol");
+final ThemeData _theme = _buildTheme();
 
-  Widget build(BuildContext context){
-    return MaterialApp(
-      title: "Poker Frontend v1",
-      home: Scaffold(
-        appBar: AppBar(title: const Text("PokerApp v1")),
-        body: const Center(
-          child: const Text("Test2"),
-        ),
-      ),
-    );
-  }
+ThemeData _buildTheme(){
+  final ThemeData base = ThemeData.light();
+  return base.copyWith(
+    colorScheme: base.colorScheme.copyWith(
+      primary: pokerPrimary,
+      secondary: pokerSecondary,
+      error: pokerHighlight,
+    )
+  );
 }
+void main(){
+  runApp(MaterialApp(
+    title: "PokerApp v1",
+    //initialRoute: "/login",
+    home: Text("Test"),// LoginPage(),
+    /* routes: {
+      "/login": (context) => const LoginPage(),
+      "/playfield": (context) => PlayField(gameId),
+    }, */
+    theme: _theme,
+  ));
+}
+
+
+/* Future<WebSocket> setupConnection() async{
+  WebSocket ws = await WebSocket.connect("ws://localhost:8080/protocol");
+  ws.add('{"action":"join", "gameId":"$gameId", "name":"$name"}');
+  return ws;
+} */
