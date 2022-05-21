@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokerts_app/colors.dart';
 import 'package:pokerts_app/playfield.dart';
 import 'package:pokerts_app/login.dart';
+import 'package:pokerts_app/socket_test.dart';
 
 const String gameId = "ahoj";
 
@@ -25,14 +26,8 @@ void main(){
     routes: {
       "/login": (context) => LoginPage(),
       "/playfield": (context) => PlayField(gameId),
+      "/sockettest": (context) => SocketTest(),
     }, 
     theme: _theme,
   ));
 }
-
-
-/* Future<WebSocket> setupConnection() async{
-  WebSocket ws = await WebSocket.connect("ws://localhost:8080/protocol");
-  ws.add('{"action":"join", "gameId":"$gameId", "name":"$name"}');
-  return ws;
-} */
