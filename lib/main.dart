@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokerts_app/colors.dart';
-import './playfield.dart';
-import './login.dart';
+import 'package:pokerts_app/playfield.dart';
+import 'package:pokerts_app/login.dart';
 
 const String gameId = "ahoj";
 
