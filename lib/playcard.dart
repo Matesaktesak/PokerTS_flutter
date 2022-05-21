@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class PlayCard  extends StatelessWidget{
-  late int value;
-  late String suit;
-  late String shortname;
-  late String valName;
+  late int value;         // Value of the card on a scale from 1 to 14 (1 and 14 being ACE)
+  late String suit;       // Suit of the card: Clubs, Hearts, Spades or Diamonds
+  late String shortname;  // Just the first letter (or two in case of 10) of the value name
+  late String valName;    // The name of the value - like ACE, 2, 3, 4, ..., 10, JACK, QUEEN, KING, ACE
 
   PlayCard(this.value, this.suit, {Key? key}) : super(key: key){
     valName = getNameByValue();
@@ -19,10 +19,9 @@ class PlayCard  extends StatelessWidget{
       children: [
         Text(
           shortname,
-          style: Theme.of(context).primaryTextTheme.displaySmall?.copyWith(color: Color(0xFF000000)),
-          
+          style: Theme.of(context).primaryTextTheme.displaySmall?.copyWith(color: const Color(0xFF000000)),
         ),
-        SizedBox(height: 5,),
+        const SizedBox(height: 5,),
         Image(fit: BoxFit.contain, image: AssetImage("assets/$suit.png")),
       ]
     );
