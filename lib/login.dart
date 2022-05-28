@@ -64,6 +64,6 @@ class LoginPage extends StatelessWidget{
   }
 
   void loginPressed(BuildContext context){
-    Navigator.pushNamed(context, "/playfield");
+    Navigator.pushReplacementNamed(context, "/main");
   }
 }
