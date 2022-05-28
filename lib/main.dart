@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokerts_app/colors.dart';
+import 'package:pokerts_app/main_menu.dart';
 import 'package:pokerts_app/playfield.dart';
 import 'package:pokerts_app/login.dart';
 import 'package:pokerts_app/socket_test.dart';
-
-const String gameId = "ahoj";
 
 final ThemeData _theme = _buildTheme();
 
@@ -18,6 +17,9 @@ ThemeData _buildTheme(){
     )
   );
 }
+
+String gameServerUrl = "localhost:8080";
+
 void main(){
   runApp(MaterialApp(
     title: "PokerApp v1",
@@ -25,7 +27,8 @@ void main(){
     //home: LoginPage(),
     routes: {
       "/login": (context) => LoginPage(),
-      "/playfield": (context) => PlayField(gameId),
+      "/main":(context) => MainMenu(),
+      "/playfield": (context) => PlayField("ahoj"),
       "/sockettest": (context) => SocketTest(),
     }, 
     theme: _theme,

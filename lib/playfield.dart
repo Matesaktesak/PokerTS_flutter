@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokerts_app/main.dart';
 import 'package:pokerts_app/playcard.dart';
 import 'package:pokerts_app/colors.dart';
 import 'dart:io' show WebSocket;
@@ -15,22 +16,22 @@ class PlayField extends StatefulWidget{
     PlayCard(9, "Hearts"),
   ]; */
 
-  String gameId = "ahoj";
+  final String gameId;
   late WebSocket ws;
   String output = "";
 
   PlayField(this.gameId, {Key? key}) : super(key: key);
   
   @override
-  State<StatefulWidget> createState() => _PlayFieldState();
+  State<StatefulWidget> createState() => _PlayFieldState(gameId);
 
 }
 
 class _PlayFieldState extends State<PlayField>{
   final betFieldController = TextEditingController();
 
-  _PlayFieldState(){
-    setupWS();
+  _PlayFieldState(String gameId){
+    setupWS(gameId);
   }
 
   @override
@@ -50,23 +51,32 @@ class _PlayFieldState extends State<PlayField>{
           crossAxisAlignment: CrossAxisAlignment.center,
           verticalDirection: VerticalDirection.down,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: AspectRatio(
-                aspectRatio: 3*5/4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: widget.community,
+            Text("Game code: ${widget.gameId}"),
+            Flexible(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: AspectRatio(
+                  aspectRatio: 3*5/4,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: widget.community,
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: AspectRatio(
-                aspectRatio: 3 * 5 / 4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: widget.cards,
+            Flexible(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: AspectRatio(
+                  aspectRatio: 3 * 5 / 4,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: widget.cards,
+                  ),
                 ),
               ),
             ),
@@ -87,7 +97,7 @@ class _PlayFieldState extends State<PlayField>{
                       ),
                       controller: betFieldController,
                     )),
-                    SizedBox(width: 12,),
+                    const SizedBox(width: 12,),
                     ElevatedButton(
                       onPressed: (() {
                         debugPrint("User bet: ${betFieldController.text}");
@@ -111,13 +121,13 @@ class _PlayFieldState extends State<PlayField>{
     super.dispose();
   }
 
-  void setupWS() {
-    WebSocket.connect("ws://localhost:8080/protocol").then((WebSocket ws) {
+  void setupWS(String gameId) {
+    WebSocket.connect("ws://$gameServerUrl/protocol").then((WebSocket ws) {
       if (ws.readyState == WebSocket.open) {
         // As soon as websocket is connected and ready for use, we can start talking to other end
 
         ws.add(json.encode({
-          "gameId": "ahoj",
+          "gameId": gameId,
           "action": "join",
           "args": {"name": "SocketTester"}
         })); // this is the JSON data format to be transmitted
@@ -126,11 +136,11 @@ class _PlayFieldState extends State<PlayField>{
           (data) {
             Map<String, dynamic> message = json.decode(data);
             // gives a StreamSubscription
-            print('$message'); // listen for incoming data and show when it arrives
+            //print('$message'); // listen for incoming data and show when it arrives
             
             if(message["action"] == "update"){
               if(message["cards"] != null){
-                print("Cards: ${message["cards"]}");
+                //print("Cards: ${message["cards"]}");
 
                 List<dynamic> cards = message["cards"];
                 widget.cards.clear();
@@ -141,16 +151,16 @@ class _PlayFieldState extends State<PlayField>{
                 });
               }
 
-              if (message["community"] != null) {
-                print("Cards: ${message["community"]}");
+              if(message["community"] != null) {
+                //print("Cards: ${message["community"]}");
 
                 List<dynamic> cards = message["community"];
                 widget.community.clear();
-                cards.forEach((c) {
+                for(var c in cards) {
                   setState(() {
                     widget.community.add(PlayCard(c["value"], c["suit"]));
                   });
-                });
+                }
               }
             }
 
