@@ -26,7 +26,7 @@ void main(){
     initialRoute: "/login",
     //home: LoginPage(),
     routes: {
-      "/login": (context) => LoginPage(),
+      "/login": (context) => const LoginPage(),
       "/main":(context) => MainMenu(),
       "/playfield": (context) => PlayField("ahoj"),
       "/sockettest": (context) => SocketTest(),

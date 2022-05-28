@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget{
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context){
@@ -15,7 +15,7 @@ class LoginPage extends StatelessWidget{
         }, icon: const Icon(Icons.info))],
       ),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 500,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget{
                 onPressed: (){
                   loginPressed(context);
                 },
-                child: Text("Login")),
+                child: const Text("Login")),
               const SizedBox(
                 height: 150,
               ),
@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget{
   }
 
   void Function()? registerPressed(){
-
+    return null;
   }
 
   void loginPressed(BuildContext context){

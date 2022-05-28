@@ -6,6 +6,8 @@ class SocketTest extends StatefulWidget{
   String output = "";
   late WebSocket ws;
 
+  SocketTest({Key? key}) : super(key: key);
+
   @override
   State<SocketTest> createState() => _SocketTestState();
 }
